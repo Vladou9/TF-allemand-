@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FutureTransport 2080 | Ihre Reise beginnt jetzt</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-cyan: #00ffff;
+            --primary-blue: #0088ff;
+            --dark-bg: #000000;
+            --card-bg: rgba(10, 20, 40, 0.4);
+            --border-glow: rgba(0, 255, 255, 0.3);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: var(--dark-bg);
+            color: #fff;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Grille de fond futuriste animée */
+        .grid-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: 0;
+            perspective: 1000px;
+            transform-style: preserve-3d;
+        }
+
+        .grid-background::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
+        }
+
+        /* Particules flottantes */
+        .particle {
+            position: fixed;
+            width: 3px;
+            height: 3px;
+            background: var(--primary-cyan);
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0;
+            animation: float 10s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { opacity: 0; transform: translateY(100vh) translateX(0); }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) translateX(100px); }
+        }
+
+        /* Header épuré */
+        header {
+            position: relative;
+            z-index: 100;
+            padding: 2rem 0;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-glow);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .logo-icon {
+            font-size: 2.5rem;
+            filter: drop-shadow(0 0 20px var(--primary-cyan));
+        }
+
+        .logo-text {
+            font-size: 2rem;
+            font-weight: 300;
+            letter-spacing: 4px;
+            background: linear-gradient(90deg, var(--primary-cyan), var(--primary-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+        }
+
+        .year-badge {
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            background: rgba(0, 255, 255, 0.1);
+            border: 1px solid var(--primary-cyan);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            margin-top: 0.5rem;
+        }
+
+        /* Barre de navigation */
+        nav {
+            position: relative;
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+        }
+
+        nav button {
+            background: none;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            color: var(--primary-cyan);
+            padding: 0.5rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        nav button:hover,
+        nav button.active {
+            background: rgba(0, 255, 255, 0.1);
+            border-color: var(--primary-cyan);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+
+        /* Container principal */
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 1400px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        /* Section Hero */
+        .hero {
+            text-align: center;
+            padding: 4rem 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero .highlight {
+            color: var(--primary-cyan);
+            font-weight: 600;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #aaa;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 3rem;
+            background: linear-gradient(135deg, var(--primary-cyan), var(--primary-blue));
+            border: none;
+            border-radius: 50px;
+            color: #000;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 10px 40px rgba(0, 255, 255, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 50px rgba(0, 255, 255, 0.5);
+        }
+
+        /* Grille de cartes épurée */
+        .transport-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        /* Carte de transport minimaliste */
+        .transport-card {
+            position: relative;
+            background: var(--card-bg);
+            border: 1px solid rgba(0, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .transport-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .transport-card:hover::before {
+            left: 100%;
+        }
+
+        .transport-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-cyan);
+            box-shadow: 0 20px 60px rgba(0, 255, 255, 0.2);
+            background: rgba(10, 30, 50, 0.5);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+
+        .transport-icon {
+            font-size: 3rem;
+            filter: drop-shadow(0 0 10px var(--primary-cyan));
+        }
+
+        .status-badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .status-popular {
+            background: linear-gradient(135deg, #ff00ff, #ff0088);
+            animation: pulse 2s infinite;
+        }
+
+        .status-new {
+            background: linear-gradient(135deg, #00ff88, #00ffff);
+            color: #000;
+        }
+
+        .status-beta {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.9; }
+        }
+
+        .transport-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--primary-cyan);
+        }
+
+        .transport-route {
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 1rem;
+        }
+
+        .transport-description {
+            color: #aaa;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Specs minimalistes */
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: rgba(0, 255, 255, 0.03);
+            border-radius: 10px;
+            border: 1px solid rgba(0, 255, 255, 0.1);
+        }
+
+        .spec-item {
+            text-align: center;
+        }
+
+        .spec-icon {
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .spec-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-cyan);
+            margin-bottom: 0.2rem;
+        }
+
+        .spec-label {
+            font-size: 0.75rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Prix */
+        .price-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 1.5rem 0;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(0, 255, 255, 0.1);
+        }
+
+        .price {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #00ff88;
+        }
+
+        .price-label {
+            font-size: 0.8rem;
+            color: #666;
+            margin-left: 0.5rem;
+        }
+
+        /* Bouton de réservation */
+        .book-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--primary-cyan), var(--primary-blue));
+            border: none;
+            border-radius: 8px;
+            color: #000;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .book-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.4);
+        }
+
+        /* Modal moderne */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, rgba(10, 20, 40, 0.95), rgba(5, 10, 20, 0.95));
+            border: 1px solid var(--border-glow);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 30px 100px rgba(0, 255, 255, 0.3);
+            animation: slideUp 0.4s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-modal:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: var(--primary-cyan);
+            transform: rotate(90deg);
+        }
+
+        .modal h2 {
+            color: var(--primary-cyan);
+            margin-bottom: 0.5rem;
+            font-size: 2rem;
+            font-weight: 300;
+        }
+
+        .modal-subtitle {
+            color: #888;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #aaa;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(0, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-cyan);
+            background: rgba(0, 255, 255, 0.1);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+        }
+
+        .form-group input::placeholder {
+            color: #555;
+        }
+
+        .confirm-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: linear-gradient(135deg, #00ff88, var(--primary-cyan));
+            border: none;
+            border-radius: 10px;
+            color: #000;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .confirm-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(0, 255, 136, 0.5);
+        }
+
+        /* Message de succès */
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+            animation: slideUp 0.4s ease;
+        }
+
+        .success-message.active {
+            display: block;
+        }
+
+        .success-icon {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            animation: bounceIn 0.6s ease;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .success-title {
+            color: #00ff88;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .success-text {
+            color: #aaa;
+            line-height: 1.8;
+        }
+
+        .booking-code {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 1rem 2rem;
+            background: rgba(0, 255, 255, 0.1);
+            border: 1px solid var(--primary-cyan);
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 1.2rem;
+            color: var(--primary-cyan);
+            letter-spacing: 3px;
+        }
+
+        /* Filtres */
+        .filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.6rem 1.2rem;
+            background: rgba(0, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            border-radius: 20px;
+            color: #aaa;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: rgba(0, 255, 255, 0.1);
+            border-color: var(--primary-cyan);
+            color: var(--primary-cyan);
+        }
+
+        /* Comparateur de prix */
+        .price-range {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: rgba(0, 255, 255, 0.03);
+            border: 1px solid rgba(0, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .price-range h3 {
+            color: var(--primary-cyan);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        /* Footer */
+        footer {
+            position: relative;
+            z-index: 10;
+            margin-top: 5rem;
+            padding: 2rem;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.6);
+            border-top: 1px solid rgba(0, 255, 255, 0.1);
+        }
+
+        footer p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .transport-grid {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .specs-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.5rem;
+            }
+        }
+
+        /* Section statistiques */
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+            padding: 2rem;
+            background: rgba(0, 255, 255, 0.03);
+            border-radius: 15px;
+            border: 1px solid rgba(0, 255, 255, 0.1);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--primary-cyan);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #888;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Grille de fond -->
+    <div class="grid-background"></div>
+
+    <!-- Particules flottantes -->
+    <div id="particles"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="logo-container">
+            <div class="logo-icon">⚡</div>
+            <div class="logo-text">FutureTransport</div>
+        </div>
+        <div class="year-badge">EST. 2080</div>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <button class="active" onclick="filterTransports('all')">Alle</button>
+        <button onclick="filterTransports('urban')">Stadt</button>
+        <button onclick="filterTransports('intercontinental')">Interkontinental</button>
+        <button onclick="filterTransports('space')">Weltraum</button>
+    </nav>
+
+    <!-- Container principal -->
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>Die Zukunft des Reisens ist <span class="highlight">jetzt</span></h1>
+            <p>Erleben Sie revolutionäre Transportmittel, die Raum und Zeit neu definieren. Von gedankengesteuerten Lufttaxis bis zu Unterwasserzügen.</p>
+            <button class="cta-button" onclick="scrollToTransports()">Reise buchen</button>
+        </section>
+
+        <!-- Statistiques -->
+        <section class="stats-section">
+            <div class="stat-item">
+                <div class="stat-value">500+</div>
+                <div class="stat-label">Städte verbunden</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">2h</div>
+                <div class="stat-label">Paris → New York</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">5M+</div>
+                <div class="stat-label">Zufriedene Passagiere</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">100%</div>
+                <div class="stat-label">KI-gesteuert</div>
+            </div>
+        </section>
+
+        <!-- Grille de transports -->
+        <div class="transport-grid" id="transportGrid">
+            
+            <!-- Taxi Volant -->
+            <div class="transport-card" data-category="urban" onclick="openModal('NeuroLink Lufttaxi', '150€', 'neuro')">
+                <div class="card-header">
+                    <div class="transport-icon">🚁</div>
+                </div>
+                <h3 class="transport-name">NeuroLink Lufttaxi</h3>
+                <p class="transport-route">Stadt • On-Demand</p>
+                <p class="transport-description">
+                    Gedankengesteuertes Flugtaxi mit KI-Navigation. Geräuschlose Motoren und 3D-Luftstraßen für nahtlose städtische Mobilität.
+                </p>
+                <div class="specs-grid">
+                    <div class="spec-item">
+                        <div class="spec-icon">⚡</div>
+                        <div class="spec-value">400</div>
+                        <div class="spec-label">km/h</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-icon">👥</div>
+                        <div class="spec-value">4</div>
+                        <div class="spec-label">Personen</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-icon">⏱️</div>
+                        <div class="spec-value">30s</div>
+                        <div class="spec-label">Wartezeit</div>
+                    </div>
+                </div>
+                <div class="price-container">
+                    <div>
+                        <span class="price">150€</span>
+                        <span class="price-label">pro Fahrt</span>
+                    </div>
+                </div>
+                <button class="book-btn">Jetzt buchen</button>
+            </div>
+
+            <!-- Capsule Magnétique -->
+            <div class="transport-card" data-category="urban" onclick="openModal('MagLev Kapsel', '80€', 'maglev')">
+                <div class="card-header">
+                    <div class="transport-icon">🚇</div>
+                    <span class="status-badge status-popular">⭐ Beliebt</span>
+                </div>
+                <h3 class="transport-name">MagLev Kapsel</h3>
+                <p class="transport-route">Stadt • U-Bahn-Netz</p>
+                <p class="transport-description">
+                    Unterirdisches Magnetschwebebahn-System. Individuelle Kapseln mit 500 km/h durch ein intelligentes Netzwerk.
+                </p>
+                <div class="specs-grid">
+                    <div class="spec-item">
+                        <div class="spec-icon">⚡</div>
+                        <div class="spec-value">500</div>
+                        <div class="spec-label">km/h</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-icon">👥</div>
+                        <div class="spec-value">2</div>
+                        <div class="spec-label">Personen</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-icon">🔋</div>
+                        <div class="spec-value">0%</div>
+                        <div class="spec-label">Emissionen</div>
+                    </div>
+                </div>
+                <div class="price-container">
+                    <div>
+                        <span class="price">80€</span>
+                        <span class="price-label">pro Fahrt</span>
+                    </div>
+                </div>
+                <button class="book-btn">Jetzt buchen</button>
+            </div>
+
+            <!-- Train Sous-Marin -->
+            <div class="transport-card" data-category="intercontinental" onclick="openModal('Atlantis Hypersonic', '2.500€', 'atlantis')">
+                <div class="card-header">
+                    <div class="transport-icon">🚄</div>
+                </div>
+                <h3 class="transport-name">Atlantis Hypersonic</h3>
+                <p class="transport-route">Paris ↔ New York • 2 Stunden</p>
+                <p class="transport-description">
+                    Revolutionärer Unterwasserzug mit Panoramablick auf die Meerestiefe. KI-gesteuerte Hochgeschwindigkeitsreise unter dem Atlantik.
+                </p>
+                <div class="specs-grid">
+                    <div class="spec-item">
+                        <div class="spec-icon">⚡</div>
+                        <div class="spec-value">5000</div>
+                        <div class="spec-label">km/h</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-icon">⏱️</div>
+                        <div class="spec-value">2h</div>
+                        <div class="spec-label">Dauer</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-icon">⭐</div>
+                        <div class="spec-value">5★</div>
+                        <div class="spec-label">Premium</div>
+                    </div>
+                </div>
+                <div class="price-container">
+                    <div>
+                        <span class="price">2.500€</span>
+                        <span class="price-label">pro Person</span>
+                    </div>
+                </div>
+                <button class="book-btn">Jetzt buchen</button>
+            </div>
+
+            <!-- Navette Lunaire -->
+            <div class="transport-card" data-category="space" onclick="openModal('Apollo-X Mondshuttle', '50.000€', 'apollo')">
+                <div class="card-header">
+                    <div class="transport-icon">🚀</div>
+                    <span class="status-badge status-new">✨ Neu</span>
+                </div>
+                <h3 class="transport-name">Apollo-X Mondshuttle</h3>
+                <p class="transport-route">Erde ↔ Mond • 8 Stunden</p>
+                <p class="transport-description">
+                    Luxuriöse Mondreise mit 5-Sterne-Hotel inklusive. Erleben Sie Schwerelosigkeit und atemberaubende Erdansichten.
+                </p>
+                <div class="specs-grid">
+                    <div class="spec-item">
+                        <div class="spec-icon">⚡</div>
+                        <div class="spec-value">40k</div>
+                        <div class="spec-label">km/h</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-icon">⏱️</div>
+                        <div class="spec-value">8h</div>
+                        <div class="spec-label">Flugzeit</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-icon">🏨</div>
+                        <div class="spec-value">3</div>
+                        <div class="spec-label">Tage Hotel</div>
+                    </div>
+                </div>
+                <div class="price-container">
+                    <div>
+                        <span class="price">50.000€</span>
+                        <span class="price-label">pro Person</span>
+                    </div>
+                </div>
+                <button class="book-btn">Jetzt buchen</button>
+            </div>
+
+            <!-- Mars Explorer -->
+            <div class="transport-card" data-category="space" onclick="openModal('Mars Explorer', '150.000€', 'mars')">
+                <div class="card-header">
+                    <div class="transport-icon">🛸</div>
+                </div>
+                <h3 class="transport-name">Mars Explorer</h3>
+                <p class="transport-route">Erde ↔ Mars • 3 Tage</p>
+                <p class="transport-description">
+                    Die ultimative Weltraumkreuzfahrt. Luxus-Raumschiff mit Restaurants, Observatorium und Null-Gravitations-Pools.
+                </p>
+                <div class="specs-grid">
+                    <div class="spec-item">
+                        <div class="spec-icon">⚡</div>
+                        <div class="spec-value">80k</div>
+                        <div class="spec-label">km/h</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-icon">⏱️</div>
+                        <div class="spec-value">3d</div>
+                        <div class="spec-label">Reisezeit</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-icon">⭐</div>
+                        <div class="spec-value">5★</div>
+                        <div class="spec-label">Ultra-Luxus</div>
+                    </div>
+                </div>
+                <div class="price-container">
+                    <div>
+                        <span class="price">150.000€</span>
+                        <span class="price-label">pro Person</span>
+                    </div>
+                </div>
+                <button class="book-btn">Jetzt buchen</button>
+            </div>
+
+            <!-- Téléportation -->
+            <div class="transport-card" data-category="experimental" onclick="openModal('Quanten-Teleportation', '10.000€', 'quantum')">
+                <div class="card-header">
+                    <div class="transport-icon">⚛️</div>
+                    <span class="status-badge status-beta">🧪 Beta</span>
+                </div>
+                <h3 class="transport-name">Quanten-Teleportation</h3>
+                <p class="transport-route">Überall • Sofort</p>
+                <p class="transport-description">
+                    Experimentelle Quantenteleportation für kleine Objekte. Menschliche Teleportation in Entwicklung. Warteliste verfügbar.
+                </p>
+                <div class="specs-grid">
+                    <div class="spec-item">
+                        <div class="spec-icon">⚡</div>
+                        <div class="spec-value">∞</div>
+                        <div class="spec-label">Sofort</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-icon">📦</div>
+                        <div class="spec-value">5kg</div>
+                        <div class="spec-label">Max. Gewicht</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-icon">🌍</div>
+                        <div class="spec-value">∞</div>
+                        <div class="spec-label">Reichweite</div>
+                    </div>
+                </div>
+                <div class="price-container">
+                    <div>
+                        <span class="price">10.000€</span>
+                        <span class="price-label">pro Objekt</span>
+                    </div>
+                </div>
+                <button class="book-btn">Warteliste beitreten</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2080 FutureTransport | Präsentiert von Schülern der Terminale | Powered by KI</p>
+    </footer>
+
+    <!-- Modal de réservation -->
+    <div class="modal" id="bookingModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal()">×</button>
+            
+            <div id="formContainer">
+                <h2 id="modalTitle">Buchung</h2>
+                <p class="modal-subtitle" id="modalSubtitle">Füllen Sie das Formular aus, um Ihre Reise zu buchen</p>
+                
+                <form id="bookingForm" onsubmit="submitBooking(event)">
+                    <div class="form-group">
+                        <label for="name">Vollständiger Name</label>
+                        <input type="text" id="name" required placeholder="Max Mustermann">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">E-Mail</label>
+                        <input type="email" id="email" required placeholder="max@beispiel.de">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="date">Reisedatum</label>
+                        <input type="date" id="date" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="passengers">Anzahl Passagiere</label>
+                        <select id="passengers" required>
+                            <option value="1">1 Person</option>
+                            <option value="2">2 Personen</option>
+                            <option value="3">3 Personen</option>
+                            <option value="4">4 Personen</option>
+                            <option value="5+">5+ Personen</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="confirm-btn">Buchung bestätigen</button>
+                </form>
+            </div>
+
+            <div class="success-message" id="successMessage">
+                <div class="success-icon">✅</div>
+                <h2 class="success-title">Buchung bestätigt!</h2>
+                <p class="success-text">
+                    Ihre futuristische Reise ist bestätigt. Eine Bestätigungs-E-Mail wurde an Ihre Adresse gesendet.
+                </p>
+                <div class="booking-code">FT-2080-<span id="bookingCode"></span></div>
+                <button class="confirm-btn" onclick="closeModal()" style="margin-top: 2rem;">Schließen</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Générer des particules flottantes
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 30; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 10 + 's';
+            particle.style.animationDuration = (5 + Math.random() * 10) + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        let currentTransport = '';
+        let currentPrice = '';
+        let currentId = '';
+
+        function openModal(transport, price, id) {
+            currentTransport = transport;
+            currentPrice = price;
+            currentId = id;
+            document.getElementById('modalTitle').textContent = transport;
+            document.getElementById('modalSubtitle').textContent = `Buchen Sie ${transport} für ${price}`;
+            document.getElementById('bookingModal').classList.add('active');
+            document.getElementById('formContainer').style.display = 'block';
+            document.getElementById('successMessage').classList.remove('active');
+        }
+
+        function closeModal() {
+            document.getElementById('bookingModal').classList.remove('active');
+            document.getElementById('bookingForm').reset();
+        }
+
+        function submitBooking(event) {
+            event.preventDefault();
+            
+            // Générer un code de réservation
+            const bookingCode = Math.random().toString(36).substr(2, 6).toUpperCase();
+            document.getElementById('bookingCode').textContent = bookingCode;
+            
+            // Animation de transition
+            document.getElementById('formContainer').style.display = 'none';
+            document.getElementById('successMessage').classList.add('active');
+            
+            // Log des données (simulation)
+            console.log('Buchung:', {
+                transport: currentTransport,
+                price: currentPrice,
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                date: document.getElementById('date').value,
+                passengers: document.getElementById('passengers').value,
+                bookingCode: bookingCode
+            });
+        }
+
+        // Filtrer les transports
+        function filterTransports(category) {
+            const cards = document.querySelectorAll('.transport-card');
+            const buttons = document.querySelectorAll('nav button');
+            
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            cards.forEach(card => {
+                if (category === 'all') {
+                    card.style.display = 'block';
+                } else {
+                    if (card.dataset.category === category) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                }
+            });
+        }
+
+        // Scroll vers les transports
+        function scrollToTransports() {
+            document.getElementById('transportGrid').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+
+        // Fermer modal en cliquant en dehors
+        document.getElementById('bookingModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Définir la date minimum pour le sélecteur de date
+        const dateInput = document.getElementById('date');
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.min = today;
+    </script>
+</body>
+</html>
